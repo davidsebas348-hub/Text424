@@ -8,7 +8,8 @@ if not getgenv().SILENT_AIM then
 end
 
 --------------------------------------------------
-
+-- SERVICES
+--------------------------------------------------
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
@@ -27,7 +28,7 @@ local function getRoot(char)
 end
 
 --------------------------------------------------
--- MÁS CERCANO
+-- MÁS CERCANO (SOLO CON TOOL EQUIPADA)
 --------------------------------------------------
 local function getClosestPlayer()
 	local myChar = getCharacter()
@@ -42,8 +43,10 @@ local function getClosestPlayer()
 			local hum = plr.Character:FindFirstChild("Humanoid")
 			local head = plr.Character:FindFirstChild("Head")
 			local root = getRoot(plr.Character)
+			local tool = plr.Character:FindFirstChildOfClass("Tool")
 
-			if hum and hum.Health > 0 and head and root then
+			-- 🔥 SOLO SI TIENE TOOL EN LA MANO
+			if hum and hum.Health > 0 and head and root and tool then
 				local dist = (root.Position - myRoot.Position).Magnitude
 
 				if dist < shortest then
